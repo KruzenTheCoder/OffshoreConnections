@@ -7,8 +7,67 @@ import Footer from "@/components/ui/Footer";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Offshore Connections | Access Skilled Remote Talent from South Africa",
-  description: "A powerful alternative to traditional hiring, giving UK businesses access to skilled remote talent from South Africa at a fraction of the cost.",
+  metadataBase: new URL("https://offshoreconnections.co.uk"), // Replace with actual domain when known
+  title: {
+    default: "Offshore Connections | Premium UK-to-SA Talent Pipeline",
+    template: "%s | Offshore Connections",
+  },
+  description:
+    "Connect with world-class, English-speaking professionals from South Africa. Save up to 70% on hiring costs without compromising on quality, reliability, or results.",
+  keywords: [
+    "Offshore Talent",
+    "South Africa Remote Workers",
+    "UK Offshore Hiring",
+    "Remote Teams",
+    "BPO South Africa",
+    "Cost-effective Hiring",
+    "Customer Support Talent",
+    "Sales SDR Offshore",
+  ],
+  authors: [{ name: "Offshore Connections" }],
+  creator: "Offshore Connections",
+  publisher: "Offshore Connections",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: "Offshore Connections | Premium UK-to-SA Talent Pipeline",
+    description:
+      "A powerful alternative to traditional hiring. Give your UK business access to skilled remote talent from South Africa at a fraction of the cost.",
+    url: "https://offshoreconnections.co.uk",
+    siteName: "Offshore Connections",
+    images: [
+      {
+        url: "/Hero-background-1.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Offshore Connections - World-Class Talent, Fraction of the Cost",
+      },
+    ],
+    locale: "en_GB",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Offshore Connections | Premium UK-to-SA Talent Pipeline",
+    description:
+      "A powerful alternative to traditional hiring. Give your UK business access to skilled remote talent from South Africa at a fraction of the cost.",
+    images: ["/Hero-background-1.jpeg"],
+    creator: "@OffshoreConnections",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
