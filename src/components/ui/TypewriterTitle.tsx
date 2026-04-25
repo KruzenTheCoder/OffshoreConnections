@@ -16,20 +16,28 @@ export const TypewriterTitle = ({ title, className = "", as = "h1", delay = 0 }:
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.03, delayChildren: delay },
+      transition: { staggerChildren: 0.05, delayChildren: delay },
     },
   };
 
   const child: Variants = {
     visible: {
       opacity: 1,
+      y: 0,
       transition: {
-        type: "tween",
-        duration: 0.05,
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
       },
     },
     hidden: {
       opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
     },
   };
 
