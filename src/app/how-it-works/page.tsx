@@ -41,10 +41,10 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-24">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center space-x-2 bg-[#3b82f6] text-white px-4 py-2 rounded-full text-sm font-medium tracking-wide mb-6 shadow-sm"
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-wide mb-6 shadow-lg shadow-blue-500/20"
           >
             <Rocket className="w-4 h-4" />
             <span>The Process</span>
@@ -55,9 +55,9 @@ export default function HowItWorks() {
             className="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.1]"
           />
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-600 font-medium"
           >
             We&apos;ve simplified offshore hiring. From discovery to onboarding, we handle the heavy lifting so you can focus on growth.
@@ -66,7 +66,7 @@ export default function HowItWorks() {
 
         <div className="relative max-w-5xl mx-auto">
           {/* Vertical Line */}
-          <div className="absolute left-8 md:left-1/2 top-10 bottom-10 w-1 bg-gradient-to-b from-blue-300 via-[#3b82f6] to-blue-300 opacity-50 -translate-x-1/2 rounded-full"></div>
+          <div className="absolute left-8 md:left-1/2 top-10 bottom-10 w-1 bg-gradient-to-b from-blue-200 via-[#3b82f6] to-cyan-300 opacity-40 -translate-x-1/2 rounded-full"></div>
 
           <div className="space-y-24">
             {steps.map((step, idx) => (
@@ -78,7 +78,7 @@ export default function HowItWorks() {
                 }`}
               >
                 {/* Center Icon */}
-                <div className="absolute left-8 md:left-1/2 w-20 h-20 bg-gradient-to-br from-[#3b82f6] to-[#0f4a8a] rounded-full border-[6px] border-[#eaf4fc] shadow-xl flex items-center justify-center -translate-x-1/2 z-10 group-hover:scale-110 transition-transform duration-500">
+                <div className="absolute left-8 md:left-1/2 w-20 h-20 bg-gradient-to-br from-[#3b82f6] to-[#0f4a8a] rounded-full border-[6px] border-[#eaf4fc] shadow-xl shadow-blue-500/20 flex items-center justify-center -translate-x-1/2 z-10 group-hover:scale-110 group-hover:shadow-2xl group-hover:shadow-blue-500/30 transition-all duration-500">
                   {step.icon}
                 </div>
 

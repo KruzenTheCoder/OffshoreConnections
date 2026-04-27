@@ -43,12 +43,12 @@ export default function ContactPage() {
           
           {/* Left Column */}
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="lg:pr-8"
           >
-            <div className="inline-flex items-center space-x-2 bg-[#3b82f6] text-white px-4 py-2 rounded-full text-sm font-medium tracking-wide mb-8 shadow-sm">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-wide mb-8 shadow-lg shadow-blue-500/20">
               <Mail className="w-4 h-4" />
               <span>Get in Touch</span>
             </div>
@@ -111,9 +111,9 @@ export default function ContactPage() {
 
           {/* Right Column: Form */}
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0, x: 30, filter: "blur(10px)" }}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="bg-white/90 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-10 shadow-[0_20px_50px_-12px_rgba(15,74,138,0.15)] border border-white relative overflow-hidden"
           >
             <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50"></div>

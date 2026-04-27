@@ -21,10 +21,10 @@ export default function AboutPage() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="inline-flex items-center space-x-2 bg-blue-100/50 text-blue-700 px-4 py-2 rounded-full text-sm font-medium mb-8"
+              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium mb-8 shadow-lg shadow-blue-500/20"
             >
               <span className="w-2 h-2 bg-blue-600 rounded-full" />
               <span>Our Mission</span>
@@ -35,9 +35,9 @@ export default function AboutPage() {
               className="text-5xl md:text-7xl font-bold text-slate-900 mb-8 leading-tight"
             />
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
               className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-3xl mx-auto"
             >
               Offshore Connections was born out of a simple realization: UK businesses need highly skilled talent to grow, but local hiring costs are often prohibitive.
@@ -136,9 +136,9 @@ export default function AboutPage() {
                     y: -10,
                     transition: { duration: 0.3, ease: "easeOut" }
                   }}
-                  className="group bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-2xl hover:border-blue-100 transition-all duration-300"
+                  className="group bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-[0_20px_50px_-12px_rgba(59,130,246,0.15)] hover:border-blue-100 transition-all duration-500"
                 >
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl group-hover:shadow-blue-500/20">
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors duration-300">
@@ -168,9 +168,10 @@ export default function AboutPage() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-white text-blue-600 px-10 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-2xl transition-all duration-300 group inline-flex items-center space-x-2"
           >
-            Get Started Today
+            <span>Get Started Today</span>
+            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
           </motion.button>
         </ScrollReveal>
       </section>

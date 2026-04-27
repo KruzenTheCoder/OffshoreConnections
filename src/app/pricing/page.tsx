@@ -70,10 +70,10 @@ export default function PricingPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center space-x-2 bg-[#3b82f6] text-white px-4 py-2 rounded-full text-sm font-medium tracking-wide mb-6 shadow-sm"
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-wide mb-6 shadow-lg shadow-blue-500/20"
           >
             <Zap className="w-4 h-4" />
             <span>Pricing</span>
@@ -84,9 +84,9 @@ export default function PricingPage() {
             className="text-5xl sm:text-6xl font-extrabold text-[#1e293b] mb-6 tracking-tight leading-[1.1]"
           />
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-600 mb-10 font-medium"
           >
             Unlike traditional Employer of Record (EoR) providers, we don&apos;t charge ongoing percentage markups on salaries. You pay a flat fee and save more.
@@ -122,7 +122,7 @@ export default function PricingPage() {
                 className={`relative bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-10 border h-full flex flex-col ${
                   tier.popular 
                     ? "border-blue-400 shadow-[0_20px_50px_-12px_rgba(59,130,246,0.25)] ring-1 ring-blue-400/50" 
-                    : "border-white shadow-[0_20px_50px_-12px_rgba(15,74,138,0.1)] hover:shadow-[0_20px_50px_-12px_rgba(15,74,138,0.15)]"
+                    : "border-white shadow-[0_20px_50px_-12px_rgba(15,74,138,0.1)] hover:shadow-[0_20px_50px_-12px_rgba(59,130,246,0.15)]"
                 } transition-all duration-300 hover:-translate-y-2 group overflow-hidden`}
               >
                 {tier.popular && (

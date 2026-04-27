@@ -51,10 +51,10 @@ export default function ResourcesPage() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-md text-[#0f4a8a] px-4 py-2 rounded-full text-sm font-semibold tracking-wide mb-6 border border-white/50 shadow-sm"
+            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-semibold tracking-wide mb-6 shadow-lg shadow-blue-500/20"
           >
             <BookOpen className="w-4 h-4" />
             <span>Knowledge Hub</span>
@@ -65,9 +65,9 @@ export default function ResourcesPage() {
             className="text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight"
           />
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl text-slate-600 leading-relaxed font-medium"
           >
             Explore our library of guides, reports, and webinars designed to help you scale your business intelligently.
@@ -76,9 +76,9 @@ export default function ResourcesPage() {
 
         {/* Featured Resource */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="bg-white rounded-[2.5rem] shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] overflow-hidden mb-20 border border-white/50 backdrop-blur-xl relative"
         >
           <div className="grid md:grid-cols-2 gap-0">
@@ -119,7 +119,7 @@ export default function ResourcesPage() {
         <div className="grid md:grid-cols-3 gap-8">
           {resources.map((resource, i) => (
             <ScrollReveal key={resource.title} delay={0.4 + i * 0.1}>
-              <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] border border-slate-100 transition-all duration-300 flex flex-col h-full group">
+              <div className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-[0_20px_50px_-12px_rgba(59,130,246,0.12)] border border-slate-100 hover:border-blue-100 transition-all duration-500 flex flex-col h-full group hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-8">
                   <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${resource.color} shadow-lg text-white`}>
                     <resource.icon className="w-6 h-6" />
