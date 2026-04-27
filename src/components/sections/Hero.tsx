@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants, useScroll, useMotionValueEvent, useSpring, useTransform } from "framer-motion";
+import { motion, Variants, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Globe, Sparkles } from "lucide-react";
@@ -11,8 +11,6 @@ import { TypewriterTitle } from "@/components/ui/TypewriterTitle";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
-  const videoRefA = useRef<HTMLVideoElement>(null);
-  const videoRefB = useRef<HTMLVideoElement>(null);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -33,14 +31,14 @@ export default function Hero() {
   const contentOpacity = useTransform(smoothProgress, [0, 0.6, 1], [1, 1, 0]);
   const contentY = useTransform(smoothProgress, [0, 0.6, 1], [0, 0, -50]);
 
-  useMotionValueEvent(smoothProgress, "change", (latest) => {
-    if (videoRefA.current && videoRefA.current.duration) {
-      videoRefA.current.currentTime = latest * videoRefA.current.duration;
-    }
-    if (videoRefB.current && videoRefB.current.duration) {
-      videoRefB.current.currentTime = latest * videoRefB.current.duration;
-    }
-  });
+  // Character parallax
+  const characterY = useTransform(smoothProgress, [0, 1], [0, -40]);
+  const characterScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.03, 1.06]);
+
+  // Image crossfade driven by scroll
+  const img1Opacity = useTransform(smoothProgress, [0, 0.25, 0.35], [1, 1, 0]);
+  const img2Opacity = useTransform(smoothProgress, [0.25, 0.35, 0.55, 0.65], [0, 1, 1, 0]);
+  const img3Opacity = useTransform(smoothProgress, [0.55, 0.65, 1], [0, 1, 1]);
 
   const textVariant: Variants = {
     hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
@@ -168,26 +166,24 @@ export default function Hero() {
             {/* Right Column */}
             <div className="relative lg:h-[600px] flex items-center justify-center mt-12 lg:mt-0">
             
-              {/* Man A (Behind Calculator) */}
+              {/* Character images behind calculator — scroll crossfade */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 0 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
-                transition={{ 
-                  opacity: { duration: 1, ease: "easeOut", delay: 0.2 },
-                  scale: { duration: 1, ease: "easeOut", delay: 0.2 },
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.2 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                style={{ y: characterY, scale: characterScale }}
                 className="absolute lg:-left-8 z-10 w-[88%] max-w-[440px] pointer-events-none"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
-                  <video 
-                    ref={videoRefA}
-                    src="/heroanimatedclean.webm" 
-                    className="w-full h-full object-contain drop-shadow-2xl z-10"
-                    muted 
-                    playsInline 
-                    preload="auto"
-                  />
+                  <motion.div style={{ opacity: img1Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/hero-illustration.png" alt="Character pose 1" width={440} height={440} className="object-contain drop-shadow-2xl" priority />
+                  </motion.div>
+                  <motion.div style={{ opacity: img2Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/Hero3.png" alt="Character pose 2" width={440} height={440} className="object-contain drop-shadow-2xl" />
+                  </motion.div>
+                  <motion.div style={{ opacity: img3Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/hero2.png" alt="Character pose 3" width={440} height={440} className="object-contain drop-shadow-2xl" />
+                  </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl -z-10 animate-glow-pulse"></div>
                 </div>
               </motion.div>
@@ -208,26 +204,24 @@ export default function Hero() {
                 <Calculator />
               </motion.div>
 
-              {/* Man B (In Front of Calculator - Fades on Hover) */}
+              {/* Character overlay that fades on calculator hover */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 0 }}
-                animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
-                transition={{ 
-                  opacity: { duration: 1, ease: "easeOut", delay: 0.2 },
-                  scale: { duration: 1, ease: "easeOut", delay: 0.2 },
-                  y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.2 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                style={{ y: characterY, scale: characterScale }}
                 className="absolute lg:-left-8 z-30 w-[88%] max-w-[440px] pointer-events-none transition-opacity duration-500 ease-in-out peer-hover:opacity-0"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
-                  <video 
-                    ref={videoRefB}
-                    src="/heroanimatedclean.webm" 
-                    className="w-full h-full object-contain drop-shadow-2xl z-10"
-                    muted 
-                    playsInline 
-                    preload="auto"
-                  />
+                  <motion.div style={{ opacity: img1Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/hero-illustration.png" alt="" width={440} height={440} className="object-contain drop-shadow-2xl" priority />
+                  </motion.div>
+                  <motion.div style={{ opacity: img2Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/Hero3.png" alt="" width={440} height={440} className="object-contain drop-shadow-2xl" />
+                  </motion.div>
+                  <motion.div style={{ opacity: img3Opacity }} className="absolute inset-0 flex items-center justify-center">
+                    <Image src="/hero2.png" alt="" width={440} height={440} className="object-contain drop-shadow-2xl" />
+                  </motion.div>
                 </div>
               </motion.div>
             
