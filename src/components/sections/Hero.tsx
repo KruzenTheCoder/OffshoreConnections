@@ -20,10 +20,10 @@ export default function Hero() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    damping: 20,
-    stiffness: 90,
-    mass: 0.1,
-    restDelta: 0.001
+    damping: 50,
+    stiffness: 200,
+    mass: 0.2,
+    restDelta: 0.0001
   });
 
   // Parallax transforms for background orbs

@@ -79,7 +79,7 @@ export default function Footer() {
         <div className="mt-14 pt-8 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
           <p>&copy; {currentYear} Offshore Connections LTD. All rights reserved.</p>
           <p className="mt-4 md:mt-0">
-            Powered by <a href="#" className="text-blue-400 hover:text-cyan-300 transition-colors duration-200">Orb IT Services</a>
+            Powered by <a href="#" className="text-blue-400 hover:text-cyan-300 transition-colors duration-200">KruzDev</a>
           </p>
         </div>
       </div>

@@ -43,7 +43,7 @@ export default function Navbar() {
     >
       <nav className={`max-w-6xl mx-auto rounded-full transition-all duration-500 ease-out ${
         scrolled 
-          ? 'bg-white/70 backdrop-blur-2xl shadow-lg shadow-slate-900/5 border border-white/50 py-2' 
+          ? 'bg-white/70 backdrop-blur-2xl shadow-lg shadow-slate-900/5 py-2' 
           : 'bg-white/0 py-4'
       }`}>
         <div className="flex justify-between items-center px-6 lg:px-8">
