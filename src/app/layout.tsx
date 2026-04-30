@@ -76,8 +76,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-GB" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900`}>
+    <html lang="en-GB" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning className={`${inter.variable} font-sans antialiased min-h-screen flex flex-col bg-slate-50 text-slate-900 relative`}>
+        {/* Strip browser extension attributes (e.g. Bitdefender bis_skin_checked) before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{document.querySelectorAll('[bis_skin_checked]').forEach(function(e){e.removeAttribute('bis_skin_checked')});new MutationObserver(function(m){m.forEach(function(r){if(r.type==='attributes'&&r.attributeName==='bis_skin_checked'){r.target.removeAttribute('bis_skin_checked')}})}).observe(document.documentElement,{attributes:true,subtree:true,attributeFilter:['bis_skin_checked']})}catch(e){}})();`,
+          }}
+        />
         <Navbar />
         <main className="flex-grow flex flex-col">{children}</main>
         <Footer />

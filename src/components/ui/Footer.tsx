@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -16,9 +17,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           
           <div className="col-span-1 md:col-span-2">
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-4 inline-block animate-gradient-shift" style={{ backgroundSize: "200% 200%" }}>
-              Offshore Connections
-            </span>
+            <Link href="/" className="inline-block mb-4">
+              <Image
+                src="/Offshore Logo.png"
+                alt="Offshore Connections"
+                width={200}
+                height={50}
+                className="h-10 w-auto brightness-0 invert"
+              />
+            </Link>
             <p className="text-slate-400 max-w-sm mt-4 leading-relaxed">
               A powerful alternative to traditional hiring, giving UK businesses access to skilled remote talent from South Africa at a fraction of the cost, without compromising on quality, reliability, or results.
             </p>

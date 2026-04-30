@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -48,14 +49,19 @@ export default function Navbar() {
       }`}>
         <div className="flex justify-between items-center px-6 lg:px-8">
           <Link href="/" className="flex items-center space-x-2 group">
-            <motion.span 
+            <motion.div 
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-500 to-cyan-400 animate-gradient-shift"
-              style={{ backgroundSize: "200% 200%" }}
             >
-              Offshore Connections
-            </motion.span>
+              <Image
+                src="/Offshore Logo.png"
+                alt="Offshore Connections"
+                width={200}
+                height={50}
+                className="h-8 sm:h-10 w-auto"
+                priority
+              />
+            </motion.div>
           </Link>
           
           <div className="hidden md:flex space-x-1 items-center">

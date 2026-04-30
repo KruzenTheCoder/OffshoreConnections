@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, Variants, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, Variants, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Globe, Sparkles } from "lucide-react";
@@ -17,38 +17,28 @@ export default function Hero() {
     offset: ["start start", "end end"]
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    damping: 50,
-    stiffness: 200,
-    mass: 0.2,
-    restDelta: 0.0001
-  });
-
-  // Parallax transforms for background orbs
-  const orbY1 = useTransform(smoothProgress, [0, 1], [0, -120]);
-  const orbY2 = useTransform(smoothProgress, [0, 1], [0, -80]);
-  const orbScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.15, 1.3]);
-  const contentOpacity = useTransform(smoothProgress, [0, 0.6, 1], [1, 1, 0]);
-  const contentY = useTransform(smoothProgress, [0, 0.6, 1], [0, 0, -50]);
+  // Use GPU-only transforms (translate3d, scale) — no spring wrapper for smoother perf
+  const orbY1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const orbY2 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.6, 1], [1, 1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.6, 1], [0, 0, -50]);
 
   // Character parallax
-  const characterY = useTransform(smoothProgress, [0, 1], [0, -40]);
-  const characterScale = useTransform(smoothProgress, [0, 0.5, 1], [1, 1.03, 1.06]);
+  const characterY = useTransform(scrollYProgress, [0, 1], [0, -40]);
 
   // Image crossfade driven by scroll
-  const img1Opacity = useTransform(smoothProgress, [0, 0.25, 0.35], [1, 1, 0]);
-  const img2Opacity = useTransform(smoothProgress, [0.25, 0.35, 0.55, 0.65], [0, 1, 1, 0]);
-  const img3Opacity = useTransform(smoothProgress, [0.55, 0.65, 1], [0, 1, 1]);
+  const img1Opacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0]);
+  const img2Opacity = useTransform(scrollYProgress, [0.25, 0.35, 0.55, 0.65], [0, 1, 1, 0]);
+  const img3Opacity = useTransform(scrollYProgress, [0.55, 0.65, 1], [0, 1, 1]);
 
   const textVariant: Variants = {
-    hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
+    hidden: { opacity: 0, y: 30 },
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
       transition: {
         delay: i * 0.15,
-        duration: 0.9,
+        duration: 0.8,
         ease: [0.22, 1, 0.36, 1],
       },
     }),
@@ -56,7 +46,7 @@ export default function Hero() {
 
   return (
     <section ref={containerRef} className="relative h-[250vh] w-full" style={{ position: "relative" }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-24 pb-16">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-24 pb-16 will-change-transform">
         {/* Background Image */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <Image
@@ -71,24 +61,24 @@ export default function Hero() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/30" />
         </div>
 
-        {/* Animated Background Orbs */}
+        {/* Animated Background Orbs — simplified, GPU-composited */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-[1]">
           <motion.div 
-            style={{ y: orbY1, scale: orbScale }}
-            className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-3xl animate-glow-pulse"
+            style={{ y: orbY1, willChange: "transform" }}
+            className="absolute -top-20 -right-20 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-3xl"
           />
           <motion.div 
-            style={{ y: orbY2 }}
-            className="absolute -bottom-40 -left-20 w-[600px] h-[600px] bg-cyan-300/10 rounded-full blur-3xl animate-glow-pulse animation-delay-2000"
+            style={{ y: orbY2, willChange: "transform" }}
+            className="absolute -bottom-40 -left-20 w-[600px] h-[600px] bg-cyan-300/10 rounded-full blur-3xl"
           />
           <motion.div 
-            style={{ y: orbY1 }}
-            className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-blue-200/15 rounded-full blur-2xl animate-float"
+            style={{ y: orbY1, willChange: "transform" }}
+            className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-blue-200/15 rounded-full blur-2xl"
           />
         </div>
 
         <motion.div 
-          style={{ opacity: contentOpacity, y: contentY }}
+          style={{ opacity: contentOpacity, y: contentY, willChange: "transform, opacity" }}
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full"
         >
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -137,7 +127,7 @@ export default function Hero() {
                 </Link>
                 <Link href="/pricing" className="w-full sm:w-auto">
                   <Button size="lg" variant="outline" className="w-full flex items-center justify-center border-2 border-slate-300 text-slate-700 hover:bg-white/80 hover:text-blue-600 hover:border-blue-300 rounded-full px-8 bg-white/50 backdrop-blur-sm transition-all duration-300">
-                    <span className="font-semibold">See Pricing & Save</span>
+                    <span className="font-semibold">See Pricing &amp; Save</span>
                   </Button>
                 </Link>
               </motion.div>
@@ -170,8 +160,8 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                style={{ y: characterY, scale: characterScale }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                style={{ y: characterY, willChange: "transform" }}
                 className="absolute lg:-left-8 z-10 w-[88%] max-w-[440px] pointer-events-none"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
@@ -184,16 +174,16 @@ export default function Hero() {
                   <motion.div style={{ opacity: img3Opacity }} className="absolute inset-0 flex items-center justify-center">
                     <Image src="/hero2.png" alt="Character pose 3" width={440} height={440} className="object-contain drop-shadow-2xl" />
                   </motion.div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl -z-10 animate-glow-pulse"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-200/40 to-cyan-200/40 rounded-full blur-3xl -z-10"></div>
                 </div>
               </motion.div>
 
               {/* Floating Calculator (Peer) */}
               <motion.div
-                initial={{ opacity: 0, x: 50, rotateY: -5 }}
-                animate={{ opacity: 1, x: 0, rotateY: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-                className="peer relative z-20 w-full max-w-[420px] lg:ml-auto lg:-mr-12 mt-40 lg:mt-0 bg-white/90 rounded-[2rem] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)] hover:shadow-[0_30px_60px_-12px_rgba(59,130,246,0.2)] hover:bg-white p-8 border border-white/60 backdrop-blur-xl transition-all duration-500 ease-out group"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                className="peer relative z-20 w-full max-w-[420px] lg:ml-auto lg:-mr-12 mt-40 lg:mt-0 bg-white/90 rounded-[2rem] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)] hover:shadow-[0_30px_60px_-12px_rgba(59,130,246,0.2)] hover:bg-white p-8 border border-white/60 backdrop-blur-xl transition-shadow duration-500 ease-out group"
               >
                 {/* Shimmer top border */}
                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[2rem]" />
@@ -208,8 +198,8 @@ export default function Hero() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-                style={{ y: characterY, scale: characterScale }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                style={{ y: characterY, willChange: "transform" }}
                 className="absolute lg:-left-8 z-30 w-[88%] max-w-[440px] pointer-events-none transition-opacity duration-500 ease-in-out peer-hover:opacity-0"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
@@ -225,30 +215,18 @@ export default function Hero() {
                 </div>
               </motion.div>
             
-              {/* Decorative Floating Elements */}
-              <motion.div 
-                animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-10 right-10 text-cyan-500 opacity-50 hidden lg:block z-0"
-              >
+              {/* Decorative Floating Elements — CSS only, no JS animation loop */}
+              <div className="absolute top-10 right-10 text-cyan-500 opacity-50 hidden lg:block z-0 animate-float">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 11l18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg>
-              </motion.div>
+              </div>
 
-              <motion.div
-                animate={{ y: [0, -12, 0], x: [0, 5, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-20 right-5 hidden lg:block z-0"
-              >
+              <div className="absolute bottom-20 right-5 hidden lg:block z-0 animate-float-slow">
                 <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 opacity-60" />
-              </motion.div>
+              </div>
 
-              <motion.div
-                animate={{ y: [0, -8, 0], x: [0, -3, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute top-32 left-0 hidden lg:block z-0"
-              >
+              <div className="absolute top-32 left-0 hidden lg:block z-0 animate-float-delayed">
                 <div className="w-2 h-2 rounded-full bg-blue-300 opacity-50" />
-              </motion.div>
+              </div>
             </div>
           
           </div>
