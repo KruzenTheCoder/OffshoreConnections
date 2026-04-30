@@ -45,8 +45,8 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative h-[250vh] w-full" style={{ position: "relative" }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center pt-24 pb-16 will-change-transform">
+    <section ref={containerRef} className="relative lg:h-[250vh] w-full" style={{ position: "relative" }}>
+      <div className="relative lg:sticky lg:top-0 min-h-[100dvh] lg:h-[100dvh] w-full overflow-hidden flex flex-col justify-start lg:justify-center pt-32 lg:pt-24 pb-16 will-change-transform">
         {/* Background Image */}
         <div className="absolute inset-0 pointer-events-none z-0">
           <Image
@@ -81,25 +81,25 @@ export default function Hero() {
           style={{ opacity: contentOpacity, y: contentY, willChange: "transform, opacity" }}
           className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full"
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           
             {/* Left Column */}
-            <div className="max-w-2xl relative z-20">
+            <div className="max-w-2xl relative z-20 flex flex-col items-center lg:items-start text-center lg:text-left mx-auto lg:mx-0">
               <motion.div
                 custom={0}
                 initial="hidden"
                 animate="visible"
                 variants={textVariant}
-                className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-wide mb-8 shadow-lg shadow-blue-500/20 group"
+                className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-500 text-white px-5 py-2.5 rounded-full text-sm font-medium tracking-wide mb-6 lg:mb-8 shadow-lg shadow-blue-500/20 group"
               >
                 <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span>UK to South Africa Talent Pipeline</span>
                 <Sparkles className="w-3.5 h-3.5 opacity-70" />
               </motion.div>
             
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-[1.1] text-[#1e293b]">
-                <TypewriterTitle title="World-Class Talent." as="div" />
-                <TypewriterTitle title="Fraction of the Cost." as="div" className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 animate-gradient-shift mt-2" delay={0.6} />
+              <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-4 lg:mb-6 leading-[1.1] lg:leading-[1.1] text-[#1e293b] w-full">
+                <TypewriterTitle title="World-Class Talent." as="div" className="w-full" />
+                <TypewriterTitle title="Fraction of the Cost." as="div" className="w-full bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-blue-600 to-cyan-500 animate-gradient-shift mt-2" delay={0.6} />
               </h1>
             
               <motion.p
@@ -107,7 +107,7 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariant}
-                className="text-lg sm:text-xl text-slate-600 mb-10 leading-relaxed max-w-lg font-medium"
+                className="text-base sm:text-lg lg:text-xl text-slate-600 mb-8 lg:mb-10 leading-relaxed max-w-lg font-medium mx-auto lg:mx-0"
               >
                 Offshore Connections gives UK businesses direct access to skilled professionals in South Africa. Save up to 70% without compromising on quality, reliability, or results.
               </motion.p>
@@ -117,7 +117,7 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariant}
-                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full sm:w-auto justify-center lg:justify-start"
               >
                 <Link href="/contact" className="w-full sm:w-auto">
                   <Button size="lg" className="w-full flex items-center justify-center space-x-2 group bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white border-none rounded-full px-8 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300">
@@ -138,7 +138,7 @@ export default function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={textVariant}
-                className="mt-12 flex items-center space-x-6 text-sm text-slate-500"
+                className="mt-8 lg:mt-12 flex items-center justify-center lg:justify-start space-x-6 text-sm text-slate-500 w-full"
               >
                 <div className="flex items-center space-x-2">
                   <div className="flex -space-x-2">
@@ -154,7 +154,7 @@ export default function Hero() {
             </div>
 
             {/* Right Column */}
-            <div className="relative lg:h-[600px] flex items-center justify-center mt-12 lg:mt-0">
+            <div className="relative lg:h-[600px] flex items-center justify-center mt-8 lg:mt-0 w-full max-w-md mx-auto lg:max-w-none">
             
               {/* Character images behind calculator — scroll crossfade */}
               <motion.div
@@ -162,7 +162,7 @@ export default function Hero() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                 style={{ y: characterY, willChange: "transform" }}
-                className="absolute lg:-left-8 z-10 w-[88%] max-w-[440px] pointer-events-none"
+                className="absolute -top-12 lg:top-auto lg:-left-8 z-10 w-[75%] lg:w-[88%] max-w-[320px] lg:max-w-[440px] pointer-events-none"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
                   <motion.div style={{ opacity: img1Opacity }} className="absolute inset-0 flex items-center justify-center">
@@ -183,11 +183,11 @@ export default function Hero() {
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
-                className="peer relative z-20 w-full max-w-[420px] lg:ml-auto lg:-mr-12 mt-40 lg:mt-0 bg-white/90 rounded-[2rem] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)] hover:shadow-[0_30px_60px_-12px_rgba(59,130,246,0.2)] hover:bg-white p-8 border border-white/60 backdrop-blur-xl transition-shadow duration-500 ease-out group"
+                className="peer relative z-20 w-full max-w-[380px] lg:max-w-[420px] lg:ml-auto lg:-mr-12 mt-32 lg:mt-0 bg-white/90 rounded-[2rem] shadow-[0_20px_60px_-12px_rgba(0,0,0,0.12)] hover:shadow-[0_30px_60px_-12px_rgba(59,130,246,0.2)] hover:bg-white p-6 lg:p-8 border border-white/60 backdrop-blur-xl transition-shadow duration-500 ease-out group mx-auto"
               >
                 {/* Shimmer top border */}
                 <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-t-[2rem]" />
-                <div className="mb-6">
+                <div className="mb-4 lg:mb-6">
                   <h3 className="text-xl font-bold text-slate-900 mb-1">Cost Savings Calculator</h3>
                   <p className="text-sm text-slate-500">See how much you can save vs. UK hires.</p>
                 </div>
@@ -200,7 +200,7 @@ export default function Hero() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
                 style={{ y: characterY, willChange: "transform" }}
-                className="absolute lg:-left-8 z-30 w-[88%] max-w-[440px] pointer-events-none transition-opacity duration-500 ease-in-out peer-hover:opacity-0"
+                className="absolute -top-12 lg:top-auto lg:-left-8 z-30 w-[75%] lg:w-[88%] max-w-[320px] lg:max-w-[440px] pointer-events-none transition-opacity duration-500 ease-in-out peer-hover:opacity-0"
               >
                 <div className="relative w-full aspect-square flex items-center justify-center">
                   <motion.div style={{ opacity: img1Opacity }} className="absolute inset-0 flex items-center justify-center">
